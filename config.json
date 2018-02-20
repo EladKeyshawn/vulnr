@@ -1,5 +1,12 @@
 {
   "server": {
     "PORT": 8000
+  },
+  "db": {
+    "host"     : "us-cdbr-iron-east-05.cleardb.net",
+    "user"    : "b6de9a37f4779f",
+    "password" : "4213b86c",
+    "database" : "heroku_3ec658dc92bac49"
+
   }
 }

@@ -5,6 +5,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require("./config.json").server;
+const db = require('./db');
 
 
 const PORT = process.env.PORT || config.PORT;
@@ -15,7 +16,10 @@ app.use(cors());
 
 app.get('/hello', (req, res) => {
 
-  res.send("Hello world!");
+  db.query("SELECT * FROM users").then(result => {
+      res.send("Hello world!");
+  });
+
 
 });
 
