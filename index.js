@@ -6,7 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require("./config.json").server;
 const db = require('./db');
-const auth = require('./auth');
+// const auth = require('./auth');
 
 const PORT = process.env.PORT || config.PORT;
 
@@ -22,15 +22,22 @@ const IpMonitor = {
     }
 };
 
-// setInterval(()=> {
-//     Stack = [];
-// },100000);
+setInterval(()=> {
+    Stack = [];
+    console.log(Stack.length);
+},900);
 
 
 app.use('/',(req,res) => {
-    const payload = req.body;
-    Stack.push(payload);
-})
+    Stack.push("1");
+    if(Stack.length > 1000) {
+        res.send("Congrats");
+        Stack = [];
+    }
+
+    console.log(Stack.length);
+    res.end();
+});
 
 app.get('/hello', (req, res) => {
 
@@ -43,21 +50,21 @@ app.get('/hello', (req, res) => {
 });
 
 
-app.post('/signup', (req, res) => {
-    console.log(req.body);
-    auth.signup(req.body)
-      .then((response) => {
-        res.json(response);
-      })
-});
-
-app.post('/login', (req, res) => {
-
-    console.log(req.body);
-    auth.login(req.body)
-      .then((response) => {
-        res.json(response);
-      })
-});
+// app.post('/signup', (req, res) => {
+//     console.log(req.body);
+//     auth.signup(req.body)
+//       .then((response) => {
+//         res.json(response);
+//       })
+// });
+//
+// app.post('/login', (req, res) => {
+//
+//     console.log(req.body);
+//     auth.login(req.body)
+//       .then((response) => {
+//         res.json(response);
+//       })
+// });
 
 app.listen(PORT, () => console.log("listening on port", PORT));
