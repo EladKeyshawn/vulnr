@@ -1,5 +1,5 @@
 const db = require('./db');
-
+const _ = require('lodash');
 
 module.exports = {
     signup: async ({email,password}) => {
@@ -7,10 +7,16 @@ module.exports = {
     },
     login: async ({email,password}) => {
         const usersMatch = await db.query(`SELECT * FROM users WHERE email="${email}" AND pass="${password}"`);
-        if(usersMatch && usersMatch.length === 1) {
-            return true;
-        }
+        console.log(usersMatch);
 
-        return false;
+        const response = {auth: false, extras: null};
+        if(usersMatch && usersMatch.length > 0) {
+            response.auth = true;
+            response.extras =  _.map(usersMatch, user => {
+                return _.omit(user,'pass');
+            });
+        }
+        return response;
+        // return !!(usersMatch && usersMatch.length === 1);
     }
-}
+};

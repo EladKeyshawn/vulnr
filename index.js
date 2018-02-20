@@ -24,13 +24,16 @@ app.get('/hello', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
+    console.log(req.body);
     auth.signup(req.body)
-      .then(() => {
-        res.json("Ok");
+      .then((response) => {
+        res.json(response);
       })
 });
 
 app.post('/login', (req, res) => {
+
+    console.log(req.body);
     auth.login(req.body)
       .then((response) => {
         res.json(response);
