@@ -47,7 +47,7 @@ app.post('/ddos', (req, res) => {
 
         const attackers = _.filter(IpMonitor, (value,key) => value.count > 10);
         if( attackers.length > 1) {
-            // TODO: Return Link to next level along with more nice congrats
+            // TODO: Return password of level of with more nice congrats
             res.send("Congrats");
         }
     } else {
