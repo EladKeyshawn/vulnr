@@ -4,8 +4,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
 const config = require("./config.json").server;
+
+
+const PORT = process.env.PORT || config.PORT;
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -18,4 +20,4 @@ app.get('/hello', (req, res) => {
 });
 
 
-app.listen(process.env.PORT || config.PORT , () => console.log("listening on port", PORT));
+app.listen( PORT , () => console.log("listening on port", PORT ));
