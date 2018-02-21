@@ -5,12 +5,12 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require("./config.json").server;
-
 const auth = require('./lib/auth');
 const levels = require('./lib/levels');
+const constants = require('./lib/constants');
 const Ddos = require('./lib/ddos');
-
-const ddos = new Ddos({silent:true,burst: 30, limit: 45,responseStatus:200,errormessage: "Congrats"});
+const ddsosMsg = constants.NICE_ONE_MSG + " here: sfl34lkf";
+const ddos = new Ddos({silent:true,burst: 30, limit: 45,responseStatus:200,errormessage: ddsosMsg});
 
 
 const PORT = process.env.PORT || config.PORT;
