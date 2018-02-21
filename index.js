@@ -10,9 +10,9 @@ const auth = require('./lib/auth');
 // const ddos = require('./lib/ddos');
 const levels = require('./lib/levels');
 
-const Ddos = require('ddos');
+const Ddos = require('./lib/ddos');
 
-const ddos = new Ddos({burst: 10, limit: 15,responseStatus:200,errormessage: "Congrats"});
+const ddos = new Ddos({silent:true,burst: 30, limit: 45,responseStatus:200,errormessage: "Congrats"});
 
 
 const PORT = process.env.PORT || config.PORT;
