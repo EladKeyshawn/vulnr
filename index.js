@@ -7,9 +7,7 @@ const bodyParser = require('body-parser');
 const config = require("./config.json").server;
 
 const auth = require('./lib/auth');
-// const ddos = require('./lib/ddos');
 const levels = require('./lib/levels');
-
 const Ddos = require('./lib/ddos');
 
 const ddos = new Ddos({silent:true,burst: 30, limit: 45,responseStatus:200,errormessage: "Congrats"});
