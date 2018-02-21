@@ -5,62 +5,35 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require("./config.json").server;
-const db = require('./db');
-const auth = require('./auth');
-const _ = require('lodash');
+
+const auth = require('./lib/auth');
+// const ddos = require('./lib/ddos');
+const levels = require('./lib/levels');
+
+const Ddos = require('ddos');
+
+const ddos = new Ddos({burst: 10, limit: 15,responseStatus:200,errormessage: "Congrats"});
+
 
 const PORT = process.env.PORT || config.PORT;
 
 app.use(bodyParser.json());
 app.use(cors());
 
-let Stack = [];
-let count = 0;
-
-const IpMonitor = {
-    "::ffff:10.100.102.6": {
-        count: 0,
-    }
-};
-
-
-
-
-setInterval(() => {
-    console.log(IpMonitor);
-    _.map(IpMonitor, (value,key) => {
-        IpMonitor[key].count = 0;
-    });
-
-    console.log(IpMonitor);
-
-
-}, 1500);
-
-
-app.post('/ddos', (req, res) => {
-
-    const ip = req.ip;
-
-
-    if(IpMonitor[ip]) {
-        IpMonitor[ip].count += 1;
-
-        const attackers = _.filter(IpMonitor, (value,key) => value.count > 10);
-        if( attackers.length > 1) {
-            // TODO: Return password of level of with more nice congrats
-            res.send("Congrats");
-        }
-    } else {
-        IpMonitor[ip] = {count:0}
-    }
-
-    res.end();
-});
 
 app.get('/hello', (req, res) => {
      res.send("Hello world!");
 });
+
+app.get('/level/validate', (req,res)=>{
+    const level = req.query.level, solution = req.query.sol;
+    assert.isOk(level, 'level # must be provided for validation');
+    assert.isOk(solution,'solution must be provided for validation');
+
+    res.json(levels.validate(level,solution));
+});
+
+app.post('/ddos',ddos.express);
 
 app.post('/signup', (req, res) => {
     auth.signup(req.body)
@@ -70,7 +43,6 @@ app.post('/signup', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-
     auth.login(req.body)
       .then((response) => {
         res.json(response);

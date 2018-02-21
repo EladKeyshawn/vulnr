@@ -3,7 +3,7 @@ const rp = require('request-promise');
 
 for (let i = 0; i < 5000; i++) {
     rp({
-        url: "http://localhost:8000",
+        url: "http://localhost:8000/ddos",
         method: "POST",
 
         json: true // Automatically stringifies the body to JSON
