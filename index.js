@@ -26,9 +26,12 @@ app.get('/hello', (req, res) => {
 app.get('/level/validate', (req,res)=>{
     const level = req.query.level, solution = req.query.sol;
     assert.isOk(level, 'level # must be provided for validation');
-    assert.isOk(solution,'solution must be provided for validation');
+    // assert.isOk(solution,'solution must be provided for validation');
 
-    res.json(levels.validate(level,solution));
+    levels.validate(level,solution)
+      .then(result => {
+          res.json(result);
+      })
 });
 
 app.post('/ddos',ddos.express);
@@ -46,5 +49,7 @@ app.post('/login', (req, res) => {
         res.json(response);
       })
 });
+
+
 
 app.listen(PORT, () => console.log("listening on port", PORT));
