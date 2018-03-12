@@ -11,7 +11,7 @@ const constants = require('./lib/constants');
 const Ddos = require('./lib/ddos');
 const ddsosMsg = constants.NICE_ONE_MSG + " here: sfl34lkf";
 const ddos = new Ddos({silent:true,burst: 30, limit: 45,responseStatus:200,errormessage: ddsosMsg});
-
+const crypto = require('./lib/crypto');
 
 const PORT = process.env.PORT || config.PORT;
 
@@ -50,6 +50,16 @@ app.post('/login', (req, res) => {
       })
 });
 
+app.get('/enc', (req,res)=>{
+    const msg = req.query.msg;
+    assert.isOk(msg, 'level # must be provided for validation');
+    res.json(crypto.enc(msg))
+});
 
+app.get('/takeover',  (req,res)=> {
+    levels.checkDomainTakover().then(result => {
+        res.json(result);
+    })
+});
 
 app.listen(PORT, () => console.log("listening on port", PORT));
