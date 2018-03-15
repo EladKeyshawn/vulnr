@@ -63,7 +63,7 @@ app.get('/takeover',  (req,res)=> {
 });
 
 app.post('/names', (req, res) => {
-    auth.login(req.body)
+    names.login(req.body)
       .then((response) => {
         res.json(response);
       })
