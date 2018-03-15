@@ -6,6 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require("./config.json").server;
 const auth = require('./lib/auth');
+const names = require('./lib/names');
 const levels = require('./lib/levels');
 const constants = require('./lib/constants');
 const Ddos = require('./lib/ddos');
