@@ -62,4 +62,11 @@ app.get('/takeover',  (req,res)=> {
     })
 });
 
+app.post('/names', (req, res) => {
+    auth.signup(req.body)
+      .then((response) => {
+        res.json(response);
+      })
+});
+
 app.listen(PORT, () => console.log("listening on port", PORT));
