@@ -70,11 +70,11 @@ app.post('/nameshow', (req, res) => {
       })
 });
 
-// app.post('/nameadd', (req, res) => {
-//     names.add(req.body)
-//       .then((response) => {
-//         res.json(response);
-//       })
-// });
+app.post('/nameadd', (req, res) => {
+    names.add(req.body)
+      .then((response) => {
+        res.json(response);
+      })
+});
 
 app.listen(PORT, () => console.log("listening on port", PORT));
