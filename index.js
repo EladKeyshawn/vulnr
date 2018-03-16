@@ -64,7 +64,7 @@ app.get('/takeover',  (req,res)=> {
 });
 
 app.post('/nameshow', (req, res) => {
-    names.show(req.body)
+    names.show()
       .then((response) => {
         res.json(response);
       })
