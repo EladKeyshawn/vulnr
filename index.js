@@ -6,6 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require("./config.json").server;
 const auth = require('./lib/auth');
+const names = require('./lib/names');
 const levels = require('./lib/levels');
 const constants = require('./lib/constants');
 const Ddos = require('./lib/ddos');
@@ -61,5 +62,19 @@ app.get('/takeover',  (req,res)=> {
         res.json(result);
     })
 });
+
+app.post('/nameshow', (req, res) => {
+    names.show(req.body)
+      .then((response) => {
+        res.json(response);
+      })
+});
+
+// app.post('/nameadd', (req, res) => {
+//     names.add(req.body)
+//       .then((response) => {
+//         res.json(response);
+//       })
+// });
 
 app.listen(PORT, () => console.log("listening on port", PORT));
