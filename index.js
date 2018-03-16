@@ -63,14 +63,14 @@ app.get('/takeover',  (req,res)=> {
     })
 });
 
-app.post('/names_show', (req, res) => {
+app.post('/nameshow', (req, res) => {
     names.show(req.body)
       .then((response) => {
         res.json(response);
       })
 });
 
-app.post('/names_add', (req, res) => {
+app.post('/nameadd', (req, res) => {
     names.add(req.body)
       .then((response) => {
         res.json(response);
